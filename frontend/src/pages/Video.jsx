@@ -5,6 +5,7 @@ import ThumbDownAltOutlinedIcon from "@mui/icons-material/ThumbDownAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import Comments from "../components/Comments";
+import Card from "../components/Card";
 const Container = styled.div`
   display: flex;
   gap: 24px;
@@ -66,10 +67,10 @@ const ChannelName = styled.span`
   font-weight: 500;
 `;
 const ChannelCounter = styled.span`
-  margin-top: 5px;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.textSoft};
   font-size: 12px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.textSoft};
+  margin-left: 5px;
 `;
 
 const Description = styled.p`
@@ -145,7 +146,20 @@ const Video = () => {
         <Comments />
       </Content>
 
-      <Recommendation>Recommendation</Recommendation>
+      <Recommendation>
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+      </Recommendation>
     </Container>
   );
 };

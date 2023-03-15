@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import Comment from "./Comment";
 const Container = styled.div``;
 const NewComment = styled.div`
   display: flex;
@@ -29,6 +29,9 @@ function Comments() {
         <Avatar src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg"></Avatar>
         <Input placeholder="Add a comment.."></Input>
       </NewComment>
+      <Comment />
+      <Comment />
+      <Comment />
     </Container>
   );
 }
