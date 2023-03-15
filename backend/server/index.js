@@ -5,6 +5,7 @@ import userRoutes from "./routes/users.js";
 import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/videos.js";
 import authRoutes from "./routes/auth.js";
+import cookieparser from "cookie-parser";
 const app = express();
 app.get("/", (req, res, next) => {
   res.send("Server has Started");
@@ -22,6 +23,7 @@ const connect = () => {
       throw err;
     });
 };
+app.use(cookieparser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
