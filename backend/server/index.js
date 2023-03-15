@@ -6,6 +6,8 @@ import videoRoutes from "./routes/videos.js";
 import commentRoutes from "./routes/videos.js";
 import authRoutes from "./routes/auth.js";
 import cookieparser from "cookie-parser";
+import cors from "cors";
+import morgan from "morgan";
 const app = express();
 app.get("/", (req, res, next) => {
   res.send("Server has Started");
@@ -25,6 +27,8 @@ const connect = () => {
 };
 app.use(cookieparser());
 app.use(express.json());
+app.use(cors());
+app.use(morgan("tiny"));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
