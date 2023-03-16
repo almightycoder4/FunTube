@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
 const Container = styled.div`
   display: flex;
@@ -44,6 +45,11 @@ const Button = styled.button`
   cursor: pointer;
   background-color: ${({ theme }) => theme.soft};
   color: ${({ theme }) => theme.textSoft};
+  &:hover {
+    color: white;
+    background-color: blue;
+    transition: ease-in 0.3s;
+  }
 `;
 
 const More = styled.div`
@@ -61,14 +67,37 @@ const Link = styled.span`
   margin-left: 30px;
 `;
 function Signin() {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [name, setname] = useState("");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/auth/signin", { email, password });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
         <SubTitle>to continue to LamaTube</SubTitle>
-        <Input placeholder="username" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <Input
+          placeholder="email"
+          onChange={(e) => {
+            setemail(e.target.value);
+          }}
+        />
+        <Input
+          type="password"
+          placeholder="password"
+          onChange={(e) => {
+            setpassword(e.target.value);
+          }}
+        />
+        <Button onClick={handleLogin}>Sign in</Button>
         <Title>or</Title>
         <Input placeholder="username" />
         <Input placeholder="email" />
