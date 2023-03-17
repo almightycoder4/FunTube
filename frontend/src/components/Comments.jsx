@@ -1,17 +1,23 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Comment from "./Comment";
+
 const Container = styled.div``;
+
 const NewComment = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
 `;
+
 const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #9999;
 `;
+
 const Input = styled.input`
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.soft};
@@ -22,18 +28,34 @@ const Input = styled.input`
   width: 100%;
 `;
 
-function Comments() {
+const Comments = ({ videoId }) => {
+  const { currUser } = useSelector((state) => state.userdata);
+
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await axios.get(`/comments/${videoId}`);
+        setComments(res.data);
+      } catch (err) {}
+    };
+    fetchComments();
+  }, [videoId]);
+
+  //TODO: ADD NEW COMMENT FUNCTIONALITY
+
   return (
     <Container>
       <NewComment>
-        <Avatar src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg"></Avatar>
-        <Input placeholder="Add a comment.."></Input>
+        <Avatar src={currUser.img} />
+        <Input placeholder="Add a comment..." />
       </NewComment>
-      <Comment />
-      <Comment />
-      <Comment />
+      {comments.map((comment) => (
+        <Comment key={comment._id} comment={comment} />
+      ))}
     </Container>
   );
-}
+};
 
 export default Comments;

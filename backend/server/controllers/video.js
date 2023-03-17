@@ -51,9 +51,14 @@ export const deleteVideo = async (req, res, next) => {
 };
 
 export const getVideo = async (req, res, next) => {
-  const video = await Video.findById(req.params.id);
-  if (!video) return next(createError(403, "Requested Video not available."));
-  res.status(200).json(video);
+  try {
+    console.log(req.params.id);
+    const video = await Video.findById(req.params.id);
+    if (!video) return next(createError(403, "Requested Video not available."));
+    res.status(200).json(video);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const addView = async (req, res, next) => {

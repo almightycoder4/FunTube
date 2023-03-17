@@ -18,6 +18,7 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bg};
@@ -77,7 +78,8 @@ const Title = styled.h2`
   color: #aaaaaa;
   margin-bottom: 20px;
 `;
-const menu = ({ darkMode, setdarkMode }) => {
+const Menu = ({ darkMode, setdarkMode }) => {
+  const { currUser } = useSelector((state) => state.userdata);
   return (
     <Container>
       <Wrapper>
@@ -115,16 +117,21 @@ const menu = ({ darkMode, setdarkMode }) => {
           History
         </Item>
         <Hr />
-        <Login>
-          Sign in to like videos, comment, and subscribe.
-          <Link to="signin" style={{ textDecoration: "none" }}>
-            <Button>
-              <AccountCircleOutlinedIcon />
-              SIGN IN
-            </Button>
-          </Link>
-        </Login>
-        <Hr />
+        {currUser ? (
+          ""
+        ) : (
+          <Login>
+            Sign in to like videos, comment, and subscribe.
+            <Link to="signin" style={{ textDecoration: "none" }}>
+              <Button>
+                <AccountCircleOutlinedIcon />
+                SIGN IN
+              </Button>
+            </Link>
+            <Hr />
+          </Login>
+        )}
+
         <Title>BEST OF FunTube</Title>
         <Item>
           <LibraryMusicOutlinedIcon />
@@ -172,4 +179,4 @@ const menu = ({ darkMode, setdarkMode }) => {
   );
 };
 
-export default menu;
+export default Menu;

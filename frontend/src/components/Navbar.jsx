@@ -1,8 +1,12 @@
 import AccountCircleOutlined from "@mui/icons-material/AccountCircleOutlined";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
+import Upload from "./Upload";
 const Container = styled.div`
   position: sticky;
   top: 0;
@@ -46,22 +50,54 @@ const Button = styled.button`
   align-items: center;
   gap: 5px;
 `;
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+`;
+
+const Avatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #999;
+`;
 const Navbar = () => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
+  const { currUser } = useSelector((state) => state.userdata);
   return (
-    <Container>
-      <Wrapper>
-        <Search>
-          <Input placeholder="Search"></Input>
-          <SearchOutlinedIcon />
-        </Search>
-        <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
-            <AccountCircleOutlined></AccountCircleOutlined>
-            SIGN IN
-          </Button>
-        </Link>
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <Search>
+            <Input
+              placeholder="Search"
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <SearchOutlinedIcon onClick={() => navigate(`/search?q=${q}`)} />
+          </Search>
+          {currUser ? (
+            <User>
+              <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
+              <Avatar src={currUser.img} />
+              {currUser.name}
+            </User>
+          ) : (
+            <Link to="signin" style={{ textDecoration: "none" }}>
+              <Button>
+                <AccountCircleOutlined></AccountCircleOutlined>
+                SIGN IN
+              </Button>
+            </Link>
+          )}
+        </Wrapper>
+      </Container>
+      {open && <Upload setOpen={setOpen} />}
+    </>
   );
 };
 

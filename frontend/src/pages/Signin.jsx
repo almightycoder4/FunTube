@@ -1,6 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { loginStart, loginFail, loginSuccess } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import { auth, provider } from "../utils/firebase";
+import { signInWithPopup } from "firebase/auth";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,15 +75,46 @@ function Signin() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [name, setname] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  /// Server Login //////
   const handleLogin = async (e) => {
     e.preventDefault();
+    dispatch(loginStart());
     try {
       const res = await axios.post("/auth/signin", { email, password });
-      console.log(res.data);
+      dispatch(loginSuccess(res.data));
+      navigate("/");
     } catch (error) {
-      console.log(error.message);
+      dispatch(loginFail());
     }
   };
+  ///Google Auth////
+  const signInWithGoogle = async () => {
+    dispatch(loginStart());
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        axios
+          .post("/auth/google", {
+            name: result.user.displayName,
+            email: result.user.email,
+            password: result.user.uid,
+            img: result.user.photoURL,
+          })
+          .then((res) => {
+            console.log(res);
+            dispatch(loginSuccess(res.data));
+            navigate("/");
+          });
+        console.log(result);
+      })
+      .catch((error) => {
+        dispatch(loginFail());
+        console.log(error);
+      });
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -99,6 +135,7 @@ function Signin() {
         />
         <Button onClick={handleLogin}>Sign in</Button>
         <Title>or</Title>
+        <Button onClick={signInWithGoogle}>Signin with Google</Button>
         <Input placeholder="username" />
         <Input placeholder="email" />
         <Input type="password" placeholder="password" />
