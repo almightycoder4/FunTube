@@ -40,7 +40,7 @@ function App() {
                   <Route path="subs" element={<Home type={"subs"} />} />
                   <Route
                     path="signin"
-                    element={currUser ? <Home /> : <Signin />}
+                    element={currUser ? <Home type={"random"} /> : <Signin />}
                   />
                   <Route path="search" element={<Search />} />
                   <Route path="videos">

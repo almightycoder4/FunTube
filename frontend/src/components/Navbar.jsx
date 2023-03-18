@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import Upload from "./Upload";
+import Userbox from "./Userbox";
 const Container = styled.div`
   position: sticky;
   top: 0;
@@ -67,11 +68,13 @@ const Avatar = styled.img`
 const Navbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [Box, setBox] = useState(false);
   const [q, setQ] = useState("");
   const { currUser } = useSelector((state) => state.userdata);
+
   return (
     <>
-      <Container>
+      <Container onClick={() => setOpen(true)}>
         <Wrapper>
           <Search>
             <Input
@@ -83,7 +86,13 @@ const Navbar = () => {
           {currUser ? (
             <User>
               <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
-              <Avatar src={currUser.img} />
+              <Avatar
+                src={currUser.img}
+                onClick={(e) => {
+                  console.log(e);
+                  setBox(true);
+                }}
+              />
               {currUser.name}
             </User>
           ) : (
@@ -97,6 +106,7 @@ const Navbar = () => {
         </Wrapper>
       </Container>
       {open && <Upload setOpen={setOpen} />}
+      {Box && <Userbox setOpen={setBox} />}
     </>
   );
 };
