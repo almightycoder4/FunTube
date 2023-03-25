@@ -6,16 +6,11 @@ import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
-import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
-import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
+import CodeIcon from "@mui/icons-material/Code";
+import HtmlIcon from "@mui/icons-material/Html";
+import JavascriptIcon from "@mui/icons-material/Javascript";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -39,7 +34,7 @@ const Logo = styled.div`
   margin-bottom: 25px;
 `;
 const Img = styled.img`
-  height: 25px;
+  height: 40px;
 `;
 const Item = styled.div`
   display: flex;
@@ -86,7 +81,7 @@ const Menu = ({ darkMode, setdarkMode }) => {
         <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
             <Img src={LogoImg} />
-            FunTube
+            LearnTube
           </Logo>
         </Link>
         <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
@@ -132,44 +127,37 @@ const Menu = ({ darkMode, setdarkMode }) => {
           </Login>
         )}
 
-        <Title>BEST OF FunTube</Title>
+        <Title>Get By Coding Language</Title>
         <Item>
-          <LibraryMusicOutlinedIcon />
-          Music
+          <CodeIcon />
+          C++
         </Item>
         <Item>
-          <SportsBasketballOutlinedIcon />
-          Sports
+          <CodeIcon />
+          Java
         </Item>
         <Item>
-          <SportsEsportsOutlinedIcon />
-          Gaming
+          <JavascriptIcon />
+          JavaScript
         </Item>
         <Item>
-          <MovieOutlinedIcon />
-          Movies
+          <HtmlIcon />
+          HTML, CSS
         </Item>
         <Item>
-          <ArticleOutlinedIcon />
-          News
+          <CodeIcon />
+          Python
         </Item>
         <Item>
-          <LiveTvOutlinedIcon />
-          Live
+          <CodeIcon />
+          Others
         </Item>
         <Hr />
         <Item>
           <SettingsOutlinedIcon />
           Settings
         </Item>
-        <Item>
-          <FlagOutlinedIcon />
-          Report
-        </Item>
-        <Item>
-          <HelpOutlineOutlinedIcon />
-          Help
-        </Item>
+
         <Item onClick={() => setdarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           {darkMode ? "Light" : "Dark"} Mode
